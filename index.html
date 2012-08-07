@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Request For Awesome</title>
+
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/rainbow.github.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="container">
+      <div id="main">
+        <div id="post" class="sticky-menu">
+          <div class="inner clearfix">
+            <div class="document prose">
+              <div class="surface preview">
+                <div class="content-preview-wrapper">
+                  <div class="content-preview">
+                    <div class="post-content">
+                      # title goes here
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="javascripts/marked.js"></script>
+    <script type="text/javascript">
+      
+      var content = document.querySelector('.post-content')
+      content.setAttribute('style', "white-space: normal;")
+      
+      // kinda hacky but whatever
+      var lines = content.innerHTML.split('\n')
+      var baseIndent = lines[1].split('#')[0]
+      
+      lines = lines.map(function iterator(line) {
+        return line.replace(baseIndent, '')
+      })
+      
+      var trimmed = lines.join('\n')
+      content.innerHTML = marked(trimmed)
+    </script>
+    
+    <script src="javascripts/rainbow.js"></script>
+    <script src="javascripts/generic.js"></script>
+    <script src="javascripts/javascript.js"></script>
+    <script type="text/javascript">
+    
+      var codeBlocks = document.querySelectorAll('code')
+          
+      Array.prototype.forEach.call(codeBlocks, function iterator(block) {
+        block.innerHTML = unescapeEntities(block.innerHTML)
+        block.setAttribute('data-language', 'javascript')
+      })
+      
+      Rainbow.color()
+      
+      // markdown is dumb and always escapes &, < and > with no way to override
+      function unescapeEntities(text) {
+        function un(text) {
+          var d = document.createElement("div")
+          d.innerHTML = text
+          return d.innerText || d.text || d.textContent
+        }
+        // need to unescape twice
+        // > -> &amp;gt; -> &gt; -> >
+        return un(un(text))
+      }
+      
+    </script>
+    
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-33955300-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+  </body>
+</html>
